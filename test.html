@@ -1,21 +1,52 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <title>按鈕範例</title>
+    <meta charset="UTF-8">
+    <title>Three.js 基礎方塊</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+    </style>
 </head>
 <body>
-  <h1 id="message">還沒有點擊</h1>
-  <button id="myButton">點我</button>
+    <!-- 引入 Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // 1. 建立場景
+        const scene = new THREE.Scene();
 
-  <script>
-    const button = document.querySelector("#myButton");
-    const message = document.querySelector("#message");
+        // 2. 建立相機
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
 
-    button.addEventListener("click", () => {
-      message.textContent = "你已經點擊按鈕了！";
-      button.textContent = "已點擊";
-    });
-  </script>
+        // 3. 建立渲染器
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // 4. 建立物件（方塊與材質）
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshNormalMaterial(); // 自動根據法向量產生色彩
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        // 5. 動畫循環
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // 讓方塊自轉
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // 視窗大小改變時自適應
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
 </body>
 </html>
