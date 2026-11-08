@@ -1,2 +1,0 @@
-# 3js
-Threejs pages
