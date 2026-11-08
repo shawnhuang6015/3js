@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>按鈕範例</title>
+</head>
+<body>
+  <h1 id="message">還沒有點擊</h1>
+  <button id="myButton">點我</button>
+
+  <script>
+    const button = document.querySelector("#myButton");
+    const message = document.querySelector("#message");
+
+    button.addEventListener("click", () => {
+      message.textContent = "你已經點擊按鈕了！";
+      button.textContent = "已點擊";
+    });
+  </script>
+</body>
+</html>
